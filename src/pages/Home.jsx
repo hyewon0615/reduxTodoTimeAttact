@@ -35,6 +35,7 @@ const Home = () => {
   const deleteTodoHandler = (id) => {
     dispatch(deleteTodo(id));
   };
+
   return (
     <div>
       <form>
@@ -44,14 +45,16 @@ const Home = () => {
       </form>
       {todos.todo.map((todo) => {
         return (
-          <div
-            key={todo.id}
-            onClick={() => {
-              navigate(`/${todo.id}`);
-            }}
-          >
+          <div key={todo.id}>
             <p>{todo.title}</p>
             <p>{todo.content}</p>
+            <button
+              onClick={() => {
+                navigate(`/${todo.id}`);
+              }}
+            >
+              상세보기
+            </button>
             <button>완료</button>
             <button
               onClick={() => {

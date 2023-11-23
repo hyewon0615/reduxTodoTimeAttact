@@ -24,7 +24,7 @@ const todos = (state = initialState, action) => {
       }; //TODO: 여기 작성
 
     case DELETE_TODO:
-      const filtertodo = state.todo.filter((T) => action.id !== T.id);
+      const filtertodo = state.todo.filter((T) => T.id !== action.id);
       return {
         ...state,
         todo: filtertodo,
