@@ -1,23 +1,34 @@
 // import uuid from "react-uuid";
-import shortid from "shortid";
+import { data } from "../../shared/fakedata";
+const ADD_TODO = "ADD_TODO";
+const DELETE_TODO = "DELETE_TODO";
+//action creator
+export const addTodo = (payload) => {
+  return { type: ADD_TODO, payload };
+};
+export const deleteTodo = (id) => {
+  return { type: DELETE_TODO, id };
+};
 
-const initialState = [
-  {
-    id: shortid.generate(),
-    title: "",
-    body: "",
-    isDone: false,
-  },
-];
+const initialState = {
+  todo: data,
+};
 
 // 리듀서
 const todos = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TODO":
-      return; //TODO: 여기 작성
+    case ADD_TODO:
+      return {
+        ...state,
+        todo: [...state.todo, action.payload],
+      }; //TODO: 여기 작성
 
-    case "DELETE_TODO":
-      return; //TODO: 여기 작성
+    case DELETE_TODO:
+      const filtertodo = state.todo.filter((T) => action.id !== T.id);
+      return {
+        ...state,
+        todo: filtertodo,
+      }; //TODO: 여기 작성
 
     case "SWITCH_TODO":
       return; //TODO: 여기 작성
