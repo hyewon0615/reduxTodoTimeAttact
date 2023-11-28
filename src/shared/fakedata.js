@@ -11,6 +11,6 @@ export const data = [
     id: shortid.generate(),
     title: "제목2",
     content: "내용2",
-    isDone: false,
+    isDone: true,
   },
 ];

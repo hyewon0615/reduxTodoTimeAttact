@@ -2,12 +2,16 @@
 import { data } from "../../shared/fakedata";
 const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
+const SWITCH_TODO = "SWITCH_TODO";
 //action creator
 export const addTodo = (payload) => {
   return { type: ADD_TODO, payload };
 };
-export const deleteTodo = (id) => {
-  return { type: DELETE_TODO, id };
+export const deleteTodo = (payload) => {
+  return { type: DELETE_TODO, payload };
+};
+export const switchTodo = (payload) => {
+  return { type: SWITCH_TODO, payload };
 };
 
 const initialState = {
@@ -24,14 +28,16 @@ const todos = (state = initialState, action) => {
       }; //TODO: 여기 작성
 
     case DELETE_TODO:
-      const filtertodo = state.todo.filter((T) => T.id !== action.id);
       return {
         ...state,
-        todo: filtertodo,
+        todo: action.payload,
       }; //TODO: 여기 작성
 
-    case "SWITCH_TODO":
-      return; //TODO: 여기 작성
+    case SWITCH_TODO:
+      return {
+        ...state,
+        todo: action.payload,
+      };
 
     default:
       return state;

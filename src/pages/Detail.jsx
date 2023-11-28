@@ -1,17 +1,31 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteTodo } from "../redux/modules/todos";
 const Detail = () => {
-  const params = useParams();
   const todos = useSelector((state) => {
-    return state.todos;
+    return state.todos.todo;
   });
-  const filterTodo = todos.todo.find((todo) => {
-    return params.id === todo.id;
+  const param = useParams();
+  const detailTodo = todos.find((todo) => {
+    return todo.id === param.id;
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const deleteHandler = (id) => {
+    const deletefilter = todos.filter((t) => {
+      return t.id !== id;
+    });
+    dispatch(deleteTodo(deletefilter));
+    navigate(`/`);
+  };
+
   return (
     <div>
-      <p>{filterTodo.title}</p>
-      <p>{filterTodo.content}</p>
+      <h3>{detailTodo.title}</h3>
+      <p>{detailTodo.content}</p>
+      <p>{String(detailTodo.isDone)}</p>
+      <button onClick={() => deleteHandler(detailTodo.id)}>삭제</button>
     </div>
   );
 };
